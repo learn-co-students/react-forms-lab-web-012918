@@ -1,9 +1,9 @@
 import React from "react";
 
-const isValidPoem = poem => {
-  const poemLines = poem.split("\n").map(line => line.trim());
-  const isRightAmountOfLines = poemLines.length === 3;
-  if (poem && isRightAmountOfLines) {
+const checkValid = (poem) => {
+  let poemLines = poem.split("\n").map(line => line.trim());
+  let checkLines = poemLines.length === 3;
+  if (poem && checkLines === true) {
     return (
       poemLines[0].split(" ").length === 5 &&
       poemLines[1].split(" ").length === 3 &&
@@ -12,24 +12,26 @@ const isValidPoem = poem => {
   } else {
     return false;
   }
-};
+}
 
 class PoemWriter extends React.Component {
   constructor() {
     super();
+
     this.state = {
-      content: "",
-      isValid: true,
+      textarea: '',
+      isValid: true
     };
   }
 
-  setPoemContent = event => {
+  handleInput = (event) => {
     const content = event.target.value;
     this.setState({
       content,
-      isValid: isValidPoem(content),
+      isValid: checkValid(content),
     });
   };
+
 
   render() {
     return (
@@ -37,14 +39,13 @@ class PoemWriter extends React.Component {
         <textarea
           rows="3"
           cols="60"
-          value={this.state.content}
-          onChange={this.setPoemContent}
-        />
-        {!this.state.isValid ? (
-          <div id="poem-validation-error" style={{ color: "red" }}>
-            This poem is not written in the right structure!
-          </div>
-        ) : null}
+          value = {this.state.textarea}
+          onChange = {this.handleInput}
+         />
+
+        {!this.state.valid ? (<div id="poem-validation-error" style={{ color: "red" }}>
+          This poem is not written in the right structure!</div>) : null}
+
       </div>
     );
   }
