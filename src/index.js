@@ -26,5 +26,6 @@ ReactDOM.render(
     </h1>
     <PoemWriter />
   </div>,
-  document.getElementById("root")
+  document.getElementById("root"),
+  console.log(login)
 );
